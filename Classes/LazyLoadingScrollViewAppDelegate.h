@@ -11,18 +11,12 @@
 @interface LazyLoadingScrollViewAppDelegate : NSObject <UIApplicationDelegate, UIScrollViewDelegate> {
     IBOutlet UIWindow *window;
     IBOutlet UIScrollView *scrollView;
-    IBOutlet UIPageControl *pageControl;
     NSMutableArray *viewControllers;
-    // To be used when scrolls originate from the UIPageControl
-    BOOL pageControlUsed;
 }
 
 @property (nonatomic, retain) UIWindow *window;
 @property (nonatomic, retain) UIScrollView *scrollView;
-@property (nonatomic, retain) UIPageControl *pageControl;
 @property (nonatomic, retain) NSMutableArray *viewControllers;
-
-- (IBAction)changePage:(id)sender;
 
 @end
 
