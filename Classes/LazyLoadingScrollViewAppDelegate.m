@@ -21,6 +21,7 @@ static NSUInteger kNumberOfPages = 8 * 2;
 
 @implementation LazyLoadingScrollViewAppDelegate
 
+@synthesize pageSet=_pageSet;
 @synthesize viewList=_viewList;
 @synthesize viewControllers;
 @synthesize containerView=_containerView;
@@ -29,6 +30,7 @@ static NSUInteger kNumberOfPages = 8 * 2;
 
 - (void)dealloc {
 	
+    [_pageSet			release];
     [_viewList			release];
     [viewControllers	release];
     [_containerView		release];
@@ -80,6 +82,7 @@ static NSUInteger kNumberOfPages = 8 * 2;
 	NSLog(@"containerView - bounds: %f %f %f %f",  
 		  _containerView.bounds.origin.x,  _containerView.bounds.origin.y,  _containerView.bounds.size.width,  _containerView.bounds.size.height);
 	
+	self.pageSet = [NSMutableSet set];
     [self loadScrollViewWithPage:0];
     [self loadScrollViewWithPage:1];
 	
@@ -108,8 +111,8 @@ static NSUInteger kNumberOfPages = 8 * 2;
 		CGFloat horizontalOffsetX	= ((float) page) * scrollView.bounds.size.width;
         view.frame					= CGRectMake(horizontalOffsetX, 0, scrollView.bounds.size.width, scrollView.bounds.size.height);
 		
-		NSLog(@"subview %d -  frame: %f %f %f %f", page,  view.frame.origin.x,  view.frame.origin.y,  view.frame.size.width,  view.frame.size.height);
-		NSLog(@"subview %d - bounds: %f %f %f %f", page, view.bounds.origin.x, view.bounds.origin.y, view.bounds.size.width, view.bounds.size.height);
+//		NSLog(@"subview %d -  frame: %f %f %f %f", page,  view.frame.origin.x,  view.frame.origin.y,  view.frame.size.width,  view.frame.size.height);
+//		NSLog(@"subview %d - bounds: %f %f %f %f", page, view.bounds.origin.x, view.bounds.origin.y, view.bounds.size.width, view.bounds.size.height);
 		
 		int zeroTo255;
 		
@@ -126,25 +129,64 @@ static NSUInteger kNumberOfPages = 8 * 2;
 		view.tag			= page;
 		
         [self.containerView addSubview:view];
-//        [self.scrollView addSubview:view];
+
     }
 	
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)sender {
 
-
+//	NSLog(@"scrollViewDidScroll");
+	
     // Switch the indicator when more than 50% of the previous/next page is visible
     CGFloat pageWidth = scrollView.frame.size.width;
     int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+	
+	[self.pageSet removeAllObjects];
+	
+	for (UIView *v in self.containerView.subviews) {
+		
+		[self.pageSet addObject:[NSNumber numberWithInteger:v.tag]];
 
-//	NSLog(@"scrollViewDidScroll - scrollViewWidth: %f scrollViewContentOffset: %f pageWidth: %f page: %d", 
-//		  scrollView.frame.size.width, scrollView.contentOffset.x, pageWidth, page);
+		CGRect bounds = [v convertRect:v.bounds toView:scrollView];
+		
+		if (CGRectIntersectsRect(bounds, scrollView.bounds)) {
+			
+//			NSLog(@"View(%d) is visible", v.tag);	
+		} else {
+			
+//			NSLog(@"View(%d) is hidden", v.tag);	
+		}
+		
+	} // for (self.containerView.subviews)
+	
+//	NSLog(@"pageSet is %@", self.pageSet);
+	
+	NSMutableSet *candidatePageSet = 
+	[NSMutableSet setWithArray:[NSArray 
+								arrayWithObjects:
+								[NSNumber numberWithInteger:(page - 1)], 
+								[NSNumber numberWithInteger:(page    )], 
+								[NSNumber numberWithInteger:(page + 1)], 
+								nil]];
+	
+//	NSLog(@"candidatePageSet is %@", candidatePageSet);
+	
+	[candidatePageSet minusSet:self.pageSet];
+//	NSLog(@"minusSet is %@", candidatePageSet);
+	
+	for (NSNumber *n in candidatePageSet) {
+		
+//		NSLog(@"Page: %d", [n integerValue]);
+		
+		[self loadScrollViewWithPage:[n integerValue]];
+		
+	} // for (candidatePageSet)
 
     // load the visible page and the page on either side of it (to avoid flashes when the user starts scrolling)
-    [self loadScrollViewWithPage:page - 1];
-    [self loadScrollViewWithPage:page];
-    [self loadScrollViewWithPage:page + 1];
+//    [self loadScrollViewWithPage:page - 1];
+//    [self loadScrollViewWithPage:page];
+//    [self loadScrollViewWithPage:page + 1];
 	
     // A possible optimization would be to unload the views+controllers which are no longer visible
 }
