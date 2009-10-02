@@ -25,9 +25,15 @@
     return self;
 }
 
+//- (void)layoutSubviews {
+//
+//	NSLog(@"ChromosomeBackdropView - layoutSubviews - tag: %d", self.tag);
+//
+//}
+
 - (void)drawRect:(CGRect)rect {
 	
-	NSLog(@"ChromosomeBackdropView - drawRect - tag: %d", self.tag);
+	NSLog(@"ChromosomeBackdropView -       drawRect - tag: %d", self.tag);
 	
 	int i;
 	float exe;

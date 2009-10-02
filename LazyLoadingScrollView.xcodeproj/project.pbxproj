@@ -12,10 +12,12 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
+		312E4FC6107806C00092513B /* LazyLoadingScrollViewIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 312E4FC5107806C00092513B /* LazyLoadingScrollViewIcon.png */; };
+		312E4FDB107808E30092513B /* ConstrainedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 312E4FDA107808E30092513B /* ConstrainedView.m */; };
+		313FDCF01076C11700E41A72 /* SequenceDataLoadingOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 313FDCEF1076C11700E41A72 /* SequenceDataLoadingOperation.m */; };
+		3178092410782FFA000C5A39 /* RandomStripe.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3178092310782FFA000C5A39 /* RandomStripe.xib */; };
+		31B1F67910794F79000A59AA /* EchoSequenceDataRangeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31B1F67810794F79000A59AA /* EchoSequenceDataRangeView.m */; };
 		31D4BE401076277C003F48B4 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31D4BE3C1076277C003F48B4 /* MainWindow.xib */; };
-		31D4BE411076277C003F48B4 /* MyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31D4BE3E1076277C003F48B4 /* MyView.xib */; };
-		31D4BE7310762928003F48B4 /* MyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D4BE7210762928003F48B4 /* MyViewController.m */; };
-		31DD848010766764000DD97E /* ChromosomeBackdropView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DD847F10766764000DD97E /* ChromosomeBackdropView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,12 +28,15 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		312E4FC5107806C00092513B /* LazyLoadingScrollViewIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LazyLoadingScrollViewIcon.png; sourceTree = "<group>"; };
+		312E4FD9107808E30092513B /* ConstrainedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConstrainedView.h; sourceTree = "<group>"; };
+		312E4FDA107808E30092513B /* ConstrainedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConstrainedView.m; sourceTree = "<group>"; };
+		313FDCEE1076C11700E41A72 /* SequenceDataLoadingOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SequenceDataLoadingOperation.h; sourceTree = "<group>"; };
+		313FDCEF1076C11700E41A72 /* SequenceDataLoadingOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SequenceDataLoadingOperation.m; sourceTree = "<group>"; };
+		3178092310782FFA000C5A39 /* RandomStripe.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RandomStripe.xib; sourceTree = "<group>"; };
+		31B1F67710794F79000A59AA /* EchoSequenceDataRangeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EchoSequenceDataRangeView.h; sourceTree = "<group>"; };
+		31B1F67810794F79000A59AA /* EchoSequenceDataRangeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EchoSequenceDataRangeView.m; sourceTree = "<group>"; };
 		31D4BE3D1076277C003F48B4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
-		31D4BE3F1076277C003F48B4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MyView.xib; sourceTree = "<group>"; };
-		31D4BE7110762928003F48B4 /* MyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyViewController.h; sourceTree = "<group>"; };
-		31D4BE7210762928003F48B4 /* MyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyViewController.m; sourceTree = "<group>"; };
-		31DD847E10766764000DD97E /* ChromosomeBackdropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChromosomeBackdropView.h; sourceTree = "<group>"; };
-		31DD847F10766764000DD97E /* ChromosomeBackdropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChromosomeBackdropView.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* LazyLoadingScrollView_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LazyLoadingScrollView_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* LazyLoadingScrollView-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "LazyLoadingScrollView-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -53,12 +58,14 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				31DD847E10766764000DD97E /* ChromosomeBackdropView.h */,
-				31DD847F10766764000DD97E /* ChromosomeBackdropView.m */,
-				31D4BE7110762928003F48B4 /* MyViewController.h */,
-				31D4BE7210762928003F48B4 /* MyViewController.m */,
 				1D3623240D0F684500981E51 /* LazyLoadingScrollViewAppDelegate.h */,
 				1D3623250D0F684500981E51 /* LazyLoadingScrollViewAppDelegate.m */,
+				313FDCEE1076C11700E41A72 /* SequenceDataLoadingOperation.h */,
+				313FDCEF1076C11700E41A72 /* SequenceDataLoadingOperation.m */,
+				31B1F67710794F79000A59AA /* EchoSequenceDataRangeView.h */,
+				31B1F67810794F79000A59AA /* EchoSequenceDataRangeView.m */,
+				312E4FD9107808E30092513B /* ConstrainedView.h */,
+				312E4FDA107808E30092513B /* ConstrainedView.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -95,9 +102,10 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				312E4FC5107806C00092513B /* LazyLoadingScrollViewIcon.png */,
 				31D4BE3C1076277C003F48B4 /* MainWindow.xib */,
-				31D4BE3E1076277C003F48B4 /* MyView.xib */,
 				8D1107310486CEB800E47090 /* LazyLoadingScrollView-Info.plist */,
+				3178092310782FFA000C5A39 /* RandomStripe.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -162,7 +170,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				31D4BE401076277C003F48B4 /* MainWindow.xib in Resources */,
-				31D4BE411076277C003F48B4 /* MyView.xib in Resources */,
+				312E4FC6107806C00092513B /* LazyLoadingScrollViewIcon.png in Resources */,
+				3178092410782FFA000C5A39 /* RandomStripe.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,8 +184,9 @@
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* LazyLoadingScrollViewAppDelegate.m in Sources */,
-				31D4BE7310762928003F48B4 /* MyViewController.m in Sources */,
-				31DD848010766764000DD97E /* ChromosomeBackdropView.m in Sources */,
+				313FDCF01076C11700E41A72 /* SequenceDataLoadingOperation.m in Sources */,
+				312E4FDB107808E30092513B /* ConstrainedView.m in Sources */,
+				31B1F67910794F79000A59AA /* EchoSequenceDataRangeView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,14 +199,6 @@
 				31D4BE3D1076277C003F48B4 /* en */,
 			);
 			name = MainWindow.xib;
-			sourceTree = "<group>";
-		};
-		31D4BE3E1076277C003F48B4 /* MyView.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				31D4BE3F1076277C003F48B4 /* en */,
-			);
-			name = MyView.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
