@@ -33,10 +33,12 @@ static int aTag = 0;
 // Set the label and background color when the view has finished loading.
 - (void)viewDidLoad {
 	
-    pageNumberLabel.text = [NSString stringWithFormat:@"%d", pageNumber];
-	self.view.tag = aTag++;
+	NSLog(@"MyViewController - viewDidLoad - page %d", pageNumber);
 	
-//    self.view.backgroundColor = [MyViewController pageControlColorWithIndex:pageNumber];
+    pageNumberLabel.text = [NSString stringWithFormat:@"%d", pageNumber];
+
+	self.view.tag = aTag++;
+	self.view.backgroundColor = [MyViewController pageControlColorWithIndex:pageNumber];
 }
 
 @end

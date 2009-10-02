@@ -9,7 +9,7 @@
 #import "LazyLoadingScrollViewAppDelegate.h"
 #import "MyViewController.h"
 
-static NSUInteger kNumberOfPages = 8;
+static NSUInteger kNumberOfPages = 8 * 2;
 
 @interface LazyLoadingScrollViewAppDelegate (PrivateMethods)
 
@@ -21,13 +21,17 @@ static NSUInteger kNumberOfPages = 8;
 
 @implementation LazyLoadingScrollViewAppDelegate
 
+@synthesize viewList=_viewList;
 @synthesize viewControllers;
+@synthesize containerView=_containerView;
 @synthesize scrollView;
 @synthesize window;
 
 - (void)dealloc {
 	
+    [_viewList			release];
     [viewControllers	release];
+    [_containerView		release];
     [scrollView			release];
     [window				release];
 	
@@ -36,14 +40,15 @@ static NSUInteger kNumberOfPages = 8;
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
 	
-    // view controllers are created lazily
-    // in the meantime, load the array with placeholders which will be replaced on demand
-    NSMutableArray *controllers = [[NSMutableArray alloc] init];
-    for (unsigned i = 0; i < kNumberOfPages; i++) {
-        [controllers addObject:[NSNull null]];
+    NSMutableArray *controllers = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray *views		= [[[NSMutableArray alloc] init] autorelease];
+	
+    for (int i = 0; i < kNumberOfPages; i++) {
+        [controllers	addObject:[NSNull null]];
+        [views			addObject:[NSNull null]];
     }
-    self.viewControllers = controllers;
-    [controllers release];
+    self.viewControllers	= controllers;
+    self.viewList			= views;
 	
     // a page is the width of the scroll view
 	//    scrollView.pagingEnabled = YES;
@@ -52,8 +57,6 @@ static NSUInteger kNumberOfPages = 8;
     scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * kNumberOfPages, scrollView.frame.size.height);
 	NSLog(@"scrollView.contentSize: %f %f", scrollView.contentSize.width, scrollView.contentSize.height);
 	
-	NSLog(@"scrollView.bounds: %f %f %f %f",  
-		  scrollView.bounds.origin.x,  scrollView.bounds.origin.y,  scrollView.bounds.size.width,  scrollView.bounds.size.height);
 	
 	//    scrollView.showsHorizontalScrollIndicator = NO;
     scrollView.showsHorizontalScrollIndicator = YES;
@@ -63,42 +66,81 @@ static NSUInteger kNumberOfPages = 8;
     scrollView.scrollsToTop = NO;
     scrollView.delegate = self;
 	
+	CGRect containerViewFrame = CGRectMake(0, 0, scrollView.contentSize.width, scrollView.contentSize.height);
+	self.containerView = [[[UIView alloc] initWithFrame:containerViewFrame] autorelease];
+	[self.scrollView addSubview:self.containerView];
 	
-    // pages are created on demand
-    // load the visible page
-    // load the page on either side to avoid flashes when the user starts scrolling
+	NSLog(@"scrollView -  frame: %f %f %f %f", 
+		  scrollView.frame.origin.x, scrollView.frame.origin.y, scrollView.frame.size.width, scrollView.frame.size.height);
+	NSLog(@"scrollView - bounds: %f %f %f %f",  
+		  scrollView.bounds.origin.x,  scrollView.bounds.origin.y,  scrollView.bounds.size.width,  scrollView.bounds.size.height);
+	
+	NSLog(@"containerView -  frame: %f %f %f %f", 
+		  _containerView.frame.origin.x, _containerView.frame.origin.y, _containerView.frame.size.width, _containerView.frame.size.height);
+	NSLog(@"containerView - bounds: %f %f %f %f",  
+		  _containerView.bounds.origin.x,  _containerView.bounds.origin.y,  _containerView.bounds.size.width,  _containerView.bounds.size.height);
+	
     [self loadScrollViewWithPage:0];
     [self loadScrollViewWithPage:1];
+	
+	NSLog(@"scrollViewContentOffset: %f %f",  scrollView.contentOffset.x, scrollView.contentOffset.y);
+	
 }
 
 - (void)loadScrollViewWithPage:(int)page {
+	
     if (page < 0) return;
     if (page >= kNumberOfPages) return;
 	
-    // replace the placeholder if necessary
-    MyViewController *controller = [viewControllers objectAtIndex:page];
-    if ((NSNull *)controller == [NSNull null]) {
-        controller = [[MyViewController alloc] initWithPageNumber:page];
-        [viewControllers replaceObjectAtIndex:page withObject:controller];
-        [controller release];
+	
+    UIView *view = [self.viewList objectAtIndex:page];
+	
+    if ((NSNull *)view == [NSNull null]) {
+		
+        view = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+		
+        [self.viewList replaceObjectAtIndex:page withObject:view];
+		
+    } // if ((NSNull *)view == [NSNull null])
+	
+    if (nil == view.superview) {
+		
+		CGFloat horizontalOffsetX	= ((float) page) * scrollView.bounds.size.width;
+        view.frame					= CGRectMake(horizontalOffsetX, 0, scrollView.bounds.size.width, scrollView.bounds.size.height);
+		
+		NSLog(@"subview %d -  frame: %f %f %f %f", page,  view.frame.origin.x,  view.frame.origin.y,  view.frame.size.width,  view.frame.size.height);
+		NSLog(@"subview %d - bounds: %f %f %f %f", page, view.bounds.origin.x, view.bounds.origin.y, view.bounds.size.width, view.bounds.size.height);
+		
+		int zeroTo255;
+		
+		zeroTo255 = (arc4random() % 255) + 1;
+		float r = ((float)zeroTo255) / 255.0;
+		
+		zeroTo255 = (arc4random() % 255) + 1;
+		float g = ((float)zeroTo255) / 255.0;
+		
+		zeroTo255 = (arc4random() % 255) + 1;
+		float b = ((float)zeroTo255) / 255.0;
+		
+		view.backgroundColor = [UIColor colorWithRed:r green:g blue:b alpha:1.0];
+		view.tag			= page;
+		
+        [self.containerView addSubview:view];
+//        [self.scrollView addSubview:view];
     }
 	
-    // add the controller's view to the scroll view
-    if (nil == controller.view.superview) {
-        CGRect frame = scrollView.frame;
-        frame.origin.x = frame.size.width * page;
-        frame.origin.y = 0;
-        controller.view.frame = frame;
-        [scrollView addSubview:controller.view];
-    }
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)sender {
 
+
     // Switch the indicator when more than 50% of the previous/next page is visible
     CGFloat pageWidth = scrollView.frame.size.width;
     int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-	
+
+//	NSLog(@"scrollViewDidScroll - scrollViewWidth: %f scrollViewContentOffset: %f pageWidth: %f page: %d", 
+//		  scrollView.frame.size.width, scrollView.contentOffset.x, pageWidth, page);
+
     // load the visible page and the page on either side of it (to avoid flashes when the user starts scrolling)
     [self loadScrollViewWithPage:page - 1];
     [self loadScrollViewWithPage:page];

@@ -27,6 +27,8 @@
 
 - (void)drawRect:(CGRect)rect {
 	
+	NSLog(@"ChromosomeBackdropView - drawRect - tag: %d", self.tag);
+	
 	int i;
 	float exe;
 	float tileWidth = 8.0;
